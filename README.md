@@ -1,6 +1,6 @@
 # Project Descriptions - Tesla Mock API
 
-This project is aim to help developer who uses Tesla APIs. It mocks the Tesla API routes and response base on [unofficial Tesla APIs documentation](https://tesla-api.timdorr.com/ "unofficial Tesla APIs documentation"). Built with NextJs + Prisma(Sqlite) + Typescript
+This project is aim to help developer who uses Tesla APIs. It mocks the Tesla API routes and response base on [unofficial Tesla APIs documentation](https://tesla-api.timdorr.com/ "unofficial Tesla APIs documentation"). Built with NextJs + Prisma(Sqlite) + Typescript + JEST
 
 ## Getting Started
 
