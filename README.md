@@ -13,7 +13,7 @@ This project is aim to help developer who uses Tesla APIs. It mocks the Tesla AP
 
 -   API routes follows tesla api routes
     -   https://auth.tesla.com/api/1/vehicles/{id}/vehicle_data => http://localhost:3000/api/1/vehicles/{id}/vehicle_data
--   Authentication route is different
+-   Authentication route
     -   https://auth.tesla.com/oauth2/v3 => http://localhost:3000/api/oauth2/v3
 
 ## Features

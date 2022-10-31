@@ -89,20 +89,13 @@ const Home: React.FC<Props> = (props) => {
                                 >
                                     <Typography>Other Item</Typography>
                                 </AccordionSummary>
-                                <AccordionDetails>
-                                    
-                                </AccordionDetails>
+                                <AccordionDetails></AccordionDetails>
                             </Accordion>
                         </div>
                     </Grid>
                     <Grid item xs={9}>
                         <Paper sx={{ p: 3 }}>
                             <VehicleDataGrid data={selectedVehicleData} />
-                        </Paper>
-                        <Paper sx={{ my: 2 }}>{selectedVehicleId}</Paper>
-                        <Paper>
-                            Display Name:{" "}
-                            {vehicleResponseData?.response?.display_name}
                         </Paper>
                     </Grid>
                 </Grid>

@@ -30,6 +30,7 @@ const VehicleDataGrid: React.FC<Props> = (props) => {
             alignItems="flex-start"
             spacing={2}
         >
+            {rows.length < 1 ? "Please Select A Vehicle" : ""}
             {rows.map((item, i) => (
                 <div key={i}>
                     <Typography>{item.name}</Typography>
