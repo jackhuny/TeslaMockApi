@@ -1,19 +1,23 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { sleep } from "../../../lib/commands";
 import prisma from "../../../lib/prisma";
-import { domainList, genStates } from "../../../lib/utils";
+import { genStates } from "../../../lib/utils";
 
 export default async function handle(
-    req: NextApiRequest,
-    res: NextApiResponse
+	req: NextApiRequest,
+	res: NextApiResponse
 ) {
-    const vehicles = await prisma.vehicle.findMany();
-    const count = vehicles.length;
-    const response = [];
+	const vehicles = await prisma.vehicle.findMany();
+	const count = vehicles.length;
+	const response = [];
 
-    for (const i in vehicles) {
-        const vehicleId = vehicles[i].vehicleId;
-        response.push(await genStates(vehicleId, "data"));
-    }
-    return res.json({ response, count });
+	for (const i in vehicles) {
+		const vehicleId = vehicles[i].vehicleId;
+		response.push(await genStates(vehicleId, "data"));
+	}
+
+	// Delay the response
+	const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+	await sleep(2000);
+
+	return res.json({ response, count });
 }
