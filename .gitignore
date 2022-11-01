@@ -60,3 +60,4 @@ dev.db
 *.env*
 dev.sqlite
 dev.sqlite-*
+.prettierrc
