@@ -1,43 +1,38 @@
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { VehicleData } from "../app/vehicle/vehicleSlice";
 
 type Props = {
 	data: VehicleData;
 };
 
+function vData_flatter(data: any, cat = "", flat_data = []) {
+	for (const prop in data) {
+		if (typeof data[prop] === "object") {
+			vData_flatter(data[prop], `${cat}${prop}_`, flat_data);
+		} else {
+			flat_data.push([`${cat}${prop}`, data[prop]]);
+		}
+	}
+}
+
 const VehicleDataGrid: React.FC<Props> = (props) => {
 	const vehicleData = props.data;
-	function createData(name: string, value: string, width: number = 2) {
-		return { name, value, width };
-	}
+	const vehicleDataFlat = [];
 
-	const rows = vehicleData
-		? [
-				createData("Vehicle Name", vehicleData?.display_name),
-				createData("Vehicle State", vehicleData?.state),
-				createData("Heading", vehicleData?.drive_state.heading),
-				createData(
-					"Doors",
-					vehicleData?.vehicle_state.locked ? "locked" : "unlocked"
-				),
-		  ]
-		: [];
+	vData_flatter(vehicleData, "", vehicleDataFlat);
+	console.log(vehicleDataFlat);
 
 	return (
-		<Stack
-			direction="row"
-			justifyContent="flex-start"
-			alignItems="flex-start"
-			spacing={2}
-		>
-			{rows.length < 1 ? "Please Select A Vehicle" : ""}
-			{rows.map((item, i) => (
+		<div>
+			{vehicleDataFlat.map((item, i) => (
 				<div key={i}>
-					<Typography>{item.name}</Typography>
-					<Typography>{item.value}</Typography>
+					<Typography variant="h5">{item[0]}</Typography>
+					<Typography sx={{ lineBreak: "anywhere" }}>
+						{item[1].toString()}
+					</Typography>
 				</div>
 			))}
-		</Stack>
+		</div>
 	);
 };
 

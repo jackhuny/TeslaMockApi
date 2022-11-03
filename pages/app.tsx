@@ -102,13 +102,4 @@ const Home: React.FC<Props> = (props) => {
 		</Layout>
 	);
 };
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-// const res = await fetch("http://localhost:3000/api/1/vehicles");
-// const vehicleList = await res.json();
-// return {
-//     props: { vehicleList },
-// };
-// };
-
 export default Home;

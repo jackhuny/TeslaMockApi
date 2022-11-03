@@ -17,7 +17,7 @@ export default async function handle(
 
 	// Delay the response
 	const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-	await sleep(2000);
+	await sleep(0);
 
 	return res.json({ response, count });
 }
