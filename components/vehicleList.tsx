@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import { useDispatch, useSelector } from "react-redux";
-import { increment } from "../app/counter/counterSlice";
 import { RootState } from "../app/store";
 import { setId } from "../app/vehicle/vehicleSlice";
 import { VehicleListResponseData } from "../app/vehicle/vehicleFetcher";
@@ -32,7 +31,6 @@ const VehicleList: React.FC<Props> = (props) => {
 					<ListItem
 						disablePadding
 						onClick={(e) => {
-							dispatch(increment());
 							dispatch(setId(vehicle.vehicle_id));
 						}}
 						key={vehicle.vehicle_id}
