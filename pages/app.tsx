@@ -77,6 +77,7 @@ const Home: React.FC<Props> = (props) => {
 									{!vehicleListResponseData && (
 										<Alert severity="info">Loading Data...</Alert>
 									)}
+
 									<VehicleList data={vehicleListResponseData} />
 								</AccordionDetails>
 							</Accordion>
@@ -94,7 +95,16 @@ const Home: React.FC<Props> = (props) => {
 					</Grid>
 					<Grid item xs={9}>
 						<Paper sx={{ p: 3 }}>
-							<VehicleDataGrid data={selectedVehicleData} />
+							{selectedVehicleData ? (
+								<div>
+									<Alert severity="info" sx={{ mb: 2 }}>
+										{selectedVehicleData.display_name}
+									</Alert>
+									<VehicleDataGrid data={selectedVehicleData} />
+								</div>
+							) : (
+								<Alert severity="info">Select a vehicle</Alert>
+							)}
 						</Paper>
 					</Grid>
 				</Grid>
