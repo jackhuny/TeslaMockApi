@@ -31,16 +31,6 @@ type Props = {
 	data: VehicleData;
 };
 
-interface TablePaginationActionProps {
-	count: number;
-	page: number;
-	rowsPerPage: number;
-	onChangePage: (
-		event: React.MouseEvent<HTMLButtonElement>,
-		newPage: number
-	) => void;
-}
-
 function TablePaginationActions(props: TablePaginationActionsProps) {
 	const theme = useTheme();
 	const { count, page, rowsPerPage, onPageChange } = props;
@@ -134,7 +124,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 function vData_flatter(data: any, cat = "", flat_data = []) {
 	for (const prop in data) {
 		if (typeof data[prop] === "object") {
-			vData_flatter(data[prop], `${cat}${prop} - `, flat_data);
+			vData_flatter(data[prop], `[${cat}${prop}] `, flat_data);
 		} else {
 			flat_data.push([`${cat}${prop}`, data[prop]]);
 		}
@@ -146,12 +136,6 @@ const VehicleDataGrid: React.FC<Props> = (props) => {
 	const vehicleDataFlat = [];
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
-
-	// Avoid a layout jump when reaching the last page with empty rows.
-	const emptyRows =
-		page > 0
-			? Math.max(0, (1 + page) * rowsPerPage - vehicleDataFlat.length)
-			: 0;
 
 	const handleChangePage = (
 		event: React.MouseEvent<HTMLButtonElement> | null,

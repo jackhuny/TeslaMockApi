@@ -6,6 +6,7 @@ import VehicleList from "../components/vehicleList";
 import VehicleDataGrid from "../components/vehicleDataGrid";
 import Layout from "../components/Layout";
 import { useVehicleData, useVehicles } from "../app/vehicle/vehicleFetcher";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 import {
 	Paper,
@@ -16,6 +17,10 @@ import {
 	AccordionDetails,
 	Typography,
 	Alert,
+	ListItem,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
 } from "@mui/material";
 import {
 	setVehicleData,
@@ -87,9 +92,18 @@ const Home: React.FC<Props> = (props) => {
 									aria-controls="panel2a-content"
 									id="panel2a-header"
 								>
-									<Typography>Other Item</Typography>
+									<Typography>Misc.</Typography>
 								</AccordionSummary>
-								<AccordionDetails></AccordionDetails>
+								<AccordionDetails>
+									<ListItem disablePadding>
+										<ListItemButton>
+											<ListItemIcon>
+												<DarkModeIcon />
+											</ListItemIcon>
+											<ListItemText primary="Dark Mode" />
+										</ListItemButton>
+									</ListItem>
+								</AccordionDetails>
 							</Accordion>
 						</div>
 					</Grid>
@@ -98,7 +112,7 @@ const Home: React.FC<Props> = (props) => {
 							{selectedVehicleData ? (
 								<div>
 									<Alert severity="info" sx={{ mb: 2 }}>
-										{selectedVehicleData.display_name}
+										{selectedVehicleData.display_name} | {selectedVehicleData.id}
 									</Alert>
 									<VehicleDataGrid data={selectedVehicleData} />
 								</div>
