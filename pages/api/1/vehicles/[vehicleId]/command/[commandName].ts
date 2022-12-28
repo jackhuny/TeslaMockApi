@@ -13,6 +13,7 @@ import {
     wake,
     windowControl,
     mock_shift,
+    climateMode
 } from "../../../../../../lib/commands";
 import { setStateValue } from "../../../../../../lib/utils";
 
@@ -61,8 +62,9 @@ export default async function handle(
             return res.json(await sentryMode(vehicleId, on));
         case "door_lock":
             return res.json(await doorLock(vehicleId, true));
-        case "door_unlock":
-            return res.json(await doorLock(vehicleId, false));
+        case "set_climate_keeper_mode":
+            console.log(req.body.climate_keeper_mode);
+            return res.json(await climateMode(vehicleId, parseInt(req.body.climate_keeper_mode)));
         case "window_control":
             const lat: number = parseFloat(req.body.lat);
             const lon: number = parseFloat(req.body.lon);
