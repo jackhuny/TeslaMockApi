@@ -31,6 +31,7 @@ export const sentryMode = async (
 		};
 	}
 };
+``;
 
 export const doorLock = async (
 	vehicleId: string,
@@ -63,6 +64,34 @@ export const climateMode = async (
 			"climate_keeper_mode",
 			climate_keeper_mode != 0 ? climate_keeper_mode.toString() : "off"
 		);
+		return { response: { reason: "", result: true } };
+	} catch (e) {
+		return {
+			response: { reason: "unable to update record", result: false },
+		};
+	}
+};
+
+export const maxDefrost = async (
+	vehicleId: string,
+	on: boolean
+): Promise<commandResponseWarper> => {
+	try {
+		await setStateValue(
+			vehicleId,
+			"climate_state",
+			"defrost_mode",
+			on ? "1" : "0"
+		);
+		if (on) {
+			await setStateValue(vehicleId, "climate_state", "is_climate_on", "true");
+			await setStateValue(
+				vehicleId,
+				"climate_state",
+				"climate_keeper_mode",
+				"1"
+			);
+		}
 		return { response: { reason: "", result: true } };
 	} catch (e) {
 		return {
@@ -182,9 +211,9 @@ export const autoConditioning = async (
 			"is_auto_conditioning_on",
 			isOn ? "true" : "false"
 		);
-		return { reason: "", result: true };
+		return { response: { reason: "", result: true } };
 	} catch (e) {
-		return { reason: "unable to update record", result: false };
+		return { response: { reason: "unable to update record", result: false } };
 	}
 };
 
