@@ -1,3 +1,4 @@
+import { typographyClasses } from "@mui/material";
 import { NextApiRequest, NextApiResponse } from "next";
 import { domainToASCII } from "url";
 import {
@@ -15,6 +16,7 @@ import {
 	mock_shift,
 	climateMode,
 	maxDefrost,
+	chargePortToggle,
 } from "../../../../../../lib/commands";
 import { setStateValue } from "../../../../../../lib/utils";
 
@@ -63,7 +65,15 @@ export default async function handle(
 			return res.json(await sentryMode(vehicleId, on));
 		case "door_lock":
 			return res.json(await doorLock(vehicleId, true));
+		case "door_unlock":
+			return res.json(await doorLock(vehicleId, false));
 		case "set_climate_keeper_mode":
+			console.log(typeof req.body.climate_keeper_mode);
+			if (typeof req.body.climate_keeper_mode !== "number") {
+				response.reason = "invalid climate_keeper_mode, must be a number";
+				response.result = false;
+				return res.status(500).json({ response });
+			}
 			return res.json(
 				await climateMode(vehicleId, parseInt(req.body.climate_keeper_mode))
 			);
@@ -92,6 +102,10 @@ export default async function handle(
 			return res.json(await autoConditioning(vehicleId, true));
 		case "auto_conditioning_stop":
 			return res.json(await autoConditioning(vehicleId, false));
+		case "charge_port_door_open":
+			return res.json(await chargePortToggle(vehicleId, true));
+		case "charge_port_door_close":
+			return res.json(await chargePortToggle(vehicleId, false));
 		case "wake":
 			return res.json(await wake(vehicleId));
 		/* Not In Office API */

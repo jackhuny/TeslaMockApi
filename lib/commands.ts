@@ -217,6 +217,29 @@ export const autoConditioning = async (
 	}
 };
 
+export const chargePortToggle = async (
+	vehicleId: string,
+	open: boolean
+): Promise<commandResponseWarper> => {
+	try {
+		await setStateValue(
+			vehicleId,
+			"charge_state",
+			"charge_port_door_open",
+			open ? "true" : "false"
+        );
+        await setStateValue(
+			vehicleId,
+			"charge_state",
+			"charge_port_latch",
+			open ? "Disengaged" : "Engaged"
+		);
+		return { response: { reason: "", result: true } };
+	} catch (e) {
+		return { response: { reason: "unable to update record", result: false } };
+	}
+};
+
 export const sleep = async (
 	vehicleId: string
 ): Promise<commandResponseWarper> => {
