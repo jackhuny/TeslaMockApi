@@ -6,7 +6,7 @@ export default async function handle(
     res: NextApiResponse
 ) {
     const body = req.body;
-
+    
     if ("fake_server_error" in body) {
         return res
             .status(500)

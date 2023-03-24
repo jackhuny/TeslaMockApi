@@ -5,7 +5,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import VehicleList from "../components/vehicleList";
 import VehicleDataGrid from "../components/vehicleDataGrid";
 import Layout from "../components/Layout";
-import { useVehicleData, useVehicles } from "../app/vehicle/vehicleFetcher";
+import {
+	isApiDataError,
+	isApiError,
+	isApiVehicleListError,
+	useVehicleData,
+	useVehicles,
+} from "../app/vehicle/vehicleFetcher";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 import {
@@ -76,9 +82,19 @@ const Home: React.FC<Props> = (props) => {
 									<Typography>Vehicle List</Typography>
 								</AccordionSummary>
 								<AccordionDetails>
-									{vehicleListResponseError && (
-										<Alert severity="error">Failed to load data</Alert>
-									)}
+									{vehicleListResponseError ||
+										(isApiVehicleListError(vehicleListResponseData) && (
+											<Alert severity="error">
+												Failed to load vehicle list
+											</Alert>
+										))}
+									{vehicleResponseError ||
+										(isApiDataError(vehicleResponseData) && (
+											<Alert severity="error">
+												Failed to load vehicle data
+											</Alert>
+										))}
+
 									{!vehicleListResponseData && (
 										<Alert severity="info">Loading Data...</Alert>
 									)}
@@ -112,7 +128,8 @@ const Home: React.FC<Props> = (props) => {
 							{selectedVehicleData ? (
 								<div>
 									<Alert severity="info" sx={{ mb: 2 }}>
-										{selectedVehicleData.display_name} | {selectedVehicleData.id}
+										{selectedVehicleData.display_name} |{" "}
+										{selectedVehicleData.id}
 									</Alert>
 									<VehicleDataGrid data={selectedVehicleData} />
 								</div>

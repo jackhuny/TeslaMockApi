@@ -143,7 +143,6 @@ const VehicleDataGrid: React.FC<Props> = (props) => {
 	) => {
 		setPage(newPage);
 	};
-
 	const handleChangeRowsPerPage = (
 		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
@@ -161,7 +160,6 @@ const VehicleDataGrid: React.FC<Props> = (props) => {
 				e[1].toString().toLowerCase().includes(searchTerm)
 		);
 		setSearchResults(results);
-		console.log(results);
 	}, [searchTerm]);
 
 	return (
