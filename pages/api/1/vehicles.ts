@@ -15,9 +15,11 @@ export default async function handle(
 		response.push(await genStates(vehicleId, "data"));
 	}
 
-	// Delay the response
-	const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-	await sleep(2000);
+	// Delay the response to simulate a slow API
+
+
+	// const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+	// await sleep(2000);
 
 	return res.json({ response, count });
 }

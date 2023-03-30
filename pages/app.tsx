@@ -6,8 +6,8 @@ import VehicleList from "../components/vehicleList";
 import VehicleDataGrid from "../components/vehicleDataGrid";
 import Layout from "../components/Layout";
 import {
+	ApiResponseInfo,
 	isApiDataError,
-	isApiError,
 	isApiVehicleListError,
 	useVehicleData,
 	useVehicles,
@@ -51,7 +51,7 @@ const Home: React.FC<Props> = (props) => {
 		const vehicleInfo =
 			selectedVehicleId &&
 			(vehicleListResponseData?.response.find(
-				(e) => e.vehicle_id == selectedVehicleId
+				(e: ApiResponseInfo) => e.vehicle_id == selectedVehicleId
 			) ||
 				null);
 		dispatch(setVehicleInfo(vehicleInfo));
@@ -82,12 +82,13 @@ const Home: React.FC<Props> = (props) => {
 									<Typography>Vehicle List</Typography>
 								</AccordionSummary>
 								<AccordionDetails>
-									{vehicleListResponseError ||
-										(isApiVehicleListError(vehicleListResponseData) && (
-											<Alert severity="error">
-												Failed to load vehicle list
-											</Alert>
-										))}
+									{(vehicleListResponseError ||
+										isApiVehicleListError(vehicleListResponseData)) && (
+										<Alert severity="error">
+											Failed to load vehicle list.
+											{vehicleListResponseError.message}
+										</Alert>
+									)}
 									{vehicleResponseError ||
 										(isApiDataError(vehicleResponseData) && (
 											<Alert severity="error">
@@ -95,7 +96,7 @@ const Home: React.FC<Props> = (props) => {
 											</Alert>
 										))}
 
-									{!vehicleListResponseData && (
+									{!vehicleListResponseData && !vehicleListResponseError && (
 										<Alert severity="info">Loading Data...</Alert>
 									)}
 

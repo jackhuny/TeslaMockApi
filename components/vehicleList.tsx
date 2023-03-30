@@ -10,10 +10,13 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
 import { setId } from "../app/vehicle/vehicleSlice";
-import { VehicleListResponseData } from "../app/vehicle/vehicleFetcher";
+import {
+	ApiResponseError,
+	VehicleListResponseData,
+} from "../app/vehicle/vehicleFetcher";
 
 type Props = {
-	data: VehicleListResponseData;
+	data: VehicleListResponseData | ApiResponseError;
 };
 
 const VehicleList: React.FC<Props> = (props) => {

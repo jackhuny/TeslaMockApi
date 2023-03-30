@@ -1,4 +1,3 @@
-import { ApiError } from "next/dist/server/api-utils";
 import useSWR from "swr";
 
 export interface ApiResponseError {
@@ -26,12 +25,26 @@ export type VehicleListResponseData = {
 };
 
 export const useVehicles = () => {
-	const fetcher = (url: string) => fetch(url).then((res) => res.json());
+	const fetcher = async (url: string) => {
+		const res = await fetch(url);
+
+		// If the status code is not in the range 200-299,
+		// we still try to parse and throw it.
+		if (!res.ok) {
+			const error = new Error(
+				`An error occurred while fetching the data. ${res.status}: ${res.statusText}`
+			);
+			// Attach extra info to the error object.
+			throw error;
+		}
+
+		return res.json();
+	};
 	const { data, error } = useSWR<
 		VehicleListResponseData | ApiResponseError,
 		Error
-		>("/api/1/vehicles", fetcher);
-	console.log(error)
+	>("/api/1/vehicles", fetcher);
+
 	return { data, error };
 };
 
